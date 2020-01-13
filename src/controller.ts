@@ -66,6 +66,7 @@ export class Controller {
                 return this.chargeWebhookForAlipay
             case EChannel.wechatpay:
             case EChannel.mppay:
+            case EChannel.nativepay:
             case EChannel.minigrampay:
                 return this.chargeWebhookForWechatpay
             default:
