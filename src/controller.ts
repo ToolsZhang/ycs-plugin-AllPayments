@@ -7,7 +7,7 @@ import { refund } from './refund'
 import { Wechatpay } from './wechatpay'
 
 export class Controller {
-    constructor(private model: IModel, private payment: IPayment) { }
+    constructor(private model: IModel, private payment: IPayment) {}
     // Gets a list of Models
     public index = async (ctx: IContext) => {
         try {
