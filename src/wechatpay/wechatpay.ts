@@ -184,6 +184,7 @@ export class Wechatpay {
     public configForPayment(orderResult: IOrderResult): IPayment {
         switch (orderResult.trade_type) {
             case 'JSAPI':
+            case 'NATIVE':
                 return this.configForJSAPIPayment(orderResult)
             default:
                 return this.configForAppPayment(orderResult)

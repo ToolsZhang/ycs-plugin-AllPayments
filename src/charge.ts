@@ -356,8 +356,10 @@ async function createChargeForWechatpay(payment: IPayment, entity: any): Promise
             break
         case EChannel.nativepay:
             params.device_info = 'WEB'
-            order = await payment.minigrampayClient.createUnifiedOrder(params)
-            charge = payment.minigrampayClient.configForPayment(order)
+            order = await payment.nativepayClient.createUnifiedOrder(params)
+            console.log('order', order)
+            charge = payment.nativepayClient.configForPayment(order)
+            console.log('charge', charge)
             break
     }
     return {
