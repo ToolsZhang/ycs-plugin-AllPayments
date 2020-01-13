@@ -304,7 +304,7 @@ async function createChargeForAlipay(payment: IPayment, entity: any): Promise<an
 }
 
 async function createChargeForWechatpay(payment: IPayment, entity: any): Promise<any> {
-    const webhook = getWebhook(payment.path);
+    const webhook = getWebhook(payment.path)
     const params: IOrderParams = {
         body: entity.subject,
         out_trade_no: entity._id.toString(),
@@ -315,20 +315,20 @@ async function createChargeForWechatpay(payment: IPayment, entity: any): Promise
     }
     switch (entity.channel) {
         case 'wechatpay':
-            params.trade_type = 'APP';
-            break;
+            params.trade_type = 'APP'
+            break
         case 'mppay':
-            params.trade_type = 'JSAPI';
-            break;
+            params.trade_type = 'JSAPI'
+            break
         case 'nativepay':
-            params.trade_type = 'NATIVE';
-            break;
+            params.trade_type = 'NATIVE'
+            break
         case 'mwebpay':
-            params.trade_type = 'MWEB';
-            break;
+            params.trade_type = 'MWEB'
+            break
         default:
-            params.trade_type = 'APP';
-            break;
+            params.trade_type = 'APP'
+            break
     }
     let order
     let charge
@@ -351,7 +351,7 @@ async function createChargeForWechatpay(payment: IPayment, entity: any): Promise
             charge = payment.minigrampayClient.configForPayment(order)
             break
         case EChannel.nativepay:
-            params.device_info = 'WEB';
+            params.device_info = 'WEB'
             order = await payment.minigrampayClient.createUnifiedOrder(params)
             charge = payment.minigrampayClient.configForPayment(order)
             break
