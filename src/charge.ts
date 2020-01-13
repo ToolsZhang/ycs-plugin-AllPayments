@@ -229,6 +229,10 @@ export interface IPayment {
      * minigrampay client
      */
     minigrampayClient?: Wechatpay
+    /**
+     * minigrampay client
+     */
+    nativepayClient?: Wechatpay
 
     /**
      * Using https

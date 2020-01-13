@@ -105,6 +105,7 @@ async function createRefund(payment: IPayment, charge: any, reason: string): Pro
             return createRefundForAlipay(payment, charge, reason)
         case EChannel.wechatpay:
         case EChannel.mppay:
+        case EChannel.nativepay:
         case EChannel.minigrampay:
             return createRefundForWechatpay(payment, charge, reason)
         default:
@@ -149,6 +150,9 @@ async function createRefundForWechatpay(payment: IPayment, charge: any, reason: 
                 break
             case EChannel.mppay:
                 client = payment.mppayClient
+                break
+            case EChannel.nativepay:
+                client = payment.nativepayClient
                 break
             case EChannel.minigrampay:
                 client = payment.minigrampayClient
