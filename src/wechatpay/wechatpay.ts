@@ -157,7 +157,7 @@ export class Wechatpay {
     constructor(config: IConfig) {
         this.__config = config
     }
-
+    // 注意tsc时需要转成 readonly config : 
     get config(): IConfig {
         return this.__config
     }

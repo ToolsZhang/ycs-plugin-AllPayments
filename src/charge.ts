@@ -102,6 +102,10 @@ export enum EChannel {
      * minigrampay
      */
     minigrampay = 'minigrampay',
+    /**
+     * NATIVEpay
+     */
+    nativepay = 'nativepay',
 }
 
 export enum ECurrency {
@@ -259,6 +263,7 @@ async function createCharge(payment: IPayment, entity: any): Promise<any> {
         case EChannel.wechatpay:
         case EChannel.mppay:
         case EChannel.minigrampay:
+        case EChannel.nativepay:
             return createChargeForWechatpay(payment, entity)
         default:
             throw Boom.badData('Unsupported payment method')
@@ -299,16 +304,32 @@ async function createChargeForAlipay(payment: IPayment, entity: any): Promise<an
 }
 
 async function createChargeForWechatpay(payment: IPayment, entity: any): Promise<any> {
-    const webhook = getWebhook(payment.path)
+    const webhook = getWebhook(payment.path);
     const params: IOrderParams = {
         body: entity.subject,
         out_trade_no: entity._id.toString(),
         total_fee: Math.ceil(entity.amount * 100),
         spbill_create_ip: ip6addr.parse(entity.client_ip).toString({ format: 'v4' }),
         notify_url: webhook.prefix + '/pay/' + entity.channel,
-        trade_type: entity.channel === EChannel.wechatpay ? 'APP' : 'JSAPI',
+        trade_type: 'APP',
     }
-
+    switch (entity.channel) {
+        case 'wechatpay':
+            params.trade_type = 'APP';
+            break;
+        case 'mppay':
+            params.trade_type = 'JSAPI';
+            break;
+        case 'nativepay':
+            params.trade_type = 'NATIVE';
+            break;
+        case 'mwebpay':
+            params.trade_type = 'MWEB';
+            break;
+        default:
+            params.trade_type = 'APP';
+            break;
+    }
     let order
     let charge
     switch (entity.channel) {
@@ -327,6 +348,11 @@ async function createChargeForWechatpay(payment: IPayment, entity: any): Promise
             params.openid = entity.openid
             order = await payment.minigrampayClient.createUnifiedOrder(params)
             console.log('order', order)
+            charge = payment.minigrampayClient.configForPayment(order)
+            break
+        case EChannel.nativepay:
+            params.device_info = 'WEB';
+            order = await payment.minigrampayClient.createUnifiedOrder(params)
             charge = payment.minigrampayClient.configForPayment(order)
             break
     }

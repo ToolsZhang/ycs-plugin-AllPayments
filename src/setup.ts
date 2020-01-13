@@ -6,17 +6,13 @@ import { setupRouter } from './router'
 
 export const setup = {
     async pre(app: Ycs): Promise<Router[]> {
-        console.log(`[${colors.green(moment().format('YY-MM-DD HH:mm:ss'))}] Setup plugin ${colors.cyan('payments')}`)
+        console.log(`[${colors.green(moment().format('YY-MM-DD HH:mm:ss'))}] Setup plugin ${colors.cyan('allpayments')}`)
         try {
-            const configPath = app.dir + '/plugins/payments'
-            app.config.payments = require(configPath)[process.env.NODE_ENV]
+            const configPath = app.dir + '/plugins/allpayments'
+            app.config.payments = require(configPath)[process.env.NODE_ENV];
 
-            console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<测试routes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-            console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<测试routes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-            console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<测试routes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-            console.log(app)
-
-            const routers = await setupRouter(app)
+            const routers = await setupRouter(app);
+            console.log(routers);
             return routers
         } catch (e) {
             console.error(e)
