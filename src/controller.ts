@@ -7,7 +7,7 @@ import { refund } from './refund'
 import { Wechatpay } from './wechatpay'
 
 export class Controller {
-    constructor(private model: IModel, private payment: IPayment) {}
+    constructor(private model: IModel, private payment: IPayment) { }
     // Gets a list of Models
     public index = async (ctx: IContext) => {
         try {
@@ -100,6 +100,8 @@ export class Controller {
                 client = this.payment.wechatpayClient
             else if (this.payment.mppayClient && this.payment.mppayClient.config.appid === ctx.request.fields.appid)
                 client = this.payment.mppayClient
+            else if (this.payment.nativepayClient && this.payment.nativepayClient.config.appid === ctx.request.fields.appid)
+                client = this.payment.nativepayClient
             else if (
                 this.payment.minigrampayClient &&
                 this.payment.minigrampayClient.config.appid === ctx.request.fields.appid

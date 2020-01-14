@@ -1,6 +1,6 @@
 {
   "name": "ycs-plugin-allpayments",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "all payment collection",
   "main": "lib/index.js",
   "scripts": {

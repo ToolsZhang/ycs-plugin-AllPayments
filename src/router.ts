@@ -173,10 +173,6 @@ export async function setupRouter(app: Ycs): Promise<Router[]> {
                 })
             }
         }
-        console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<测试routes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<测试routes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<测试routes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        console.log(prefix)
 
         routers.push(chargeModel.routes('/' + prefix, ...paths))
     }
