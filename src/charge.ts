@@ -356,7 +356,7 @@ async function createChargeForWechatpay(payment: IPayment, entity: any): Promise
             break
         case EChannel.nativepay:
             params.device_info = 'WEB'
-            var nowTime = new Date()
+            var nowTime = new Date(Date.now() + (8 * 60 * 60 * 1000));
             let date = new Date(new Date().setMinutes(nowTime.getMinutes() + 10))
             params.time_expire = moment(date).format('yyyyMMddHHmmss')
             charge = await payment.nativepayClient.createUnifiedOrder(params)
